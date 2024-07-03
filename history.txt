@@ -1,0 +1,14 @@
+2024-07-03 13:28:28.886397: simply logged in
+2024-07-03 13:30:31.090928: simply logged in
+2024-07-03 13:30:59.338690: simply logged in
+2024-07-03 13:31:11.845232: simply read all the stored passwords
+2024-07-03 13:31:25.632358: original logged in
+2024-07-03 13:31:40.817174: original used Palindrome Checker with: malayalam
+2024-07-03 13:31:50.039172: original used Calculator with 20.0 and 30.0
+2024-07-03 13:32:28.189794: bfr logged in
+2024-07-03 13:32:41.210594: bfr viewed History
+2024-07-03 13:57:25.943397: bankai logged in
+2024-07-03 13:57:48.977566: bfr logged in
+2024-07-03 13:58:21.132011: bfr added new user, Username: someone
+2024-07-03 13:58:24.211245: someone logged in
+2024-07-03 13:58:31.099154: someone viewed History
