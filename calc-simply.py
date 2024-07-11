@@ -1,4 +1,7 @@
 #IDEKWIMTBIWN v1.0
+
+#--------------INTRODUCTION----------------------------------
+
 #I Don't Even Know Why I Made This, But It Works Nonetheless
 #by Simply
 
@@ -6,6 +9,8 @@
 #Provided to me by my college, but I know I'm too good for it
 #So I added function by function, until I created this unwanted
 #Pile of code-junk
+
+#------------------CHANGELOG-----------------------------------
 
 #v1.2
 #Added a menu system to move between calculator and newly added
@@ -35,11 +40,17 @@
 #Added ANSI Color sequences to all text being printed
 #Added placeholders for colors for easier implementation
 
+#v1.7
+#Added ASCII art flash screen, which can be changed in ascii.txt
 
-#---------------------------------------------------------------------
+#v1.8
+#Made the entire console stay in one position, by giving clear console
 
+#--------------------CODE-----------------------------------------
 
 from datetime import datetime       #module to find current system time
+from time import sleep
+import os
 
 lim=20      #Global Limit for all FOR loops
 
@@ -50,6 +61,7 @@ YELLOW = '\033[33m'
 BLUE = '\033[34m'
 MAGENTA = '\033[35m'
 CYAN = '\033[36m'
+PINK = '\033[219m]'
 BRIGHT_RED = '\033[91m'
 BRIGHT_GREEN = '\033[92m'
 BRIGHT_YELLOW = '\033[93m'
@@ -78,7 +90,8 @@ def pal():      #function to check for palindrome
     try:
         file2=open("history.txt","a")
         tim=str(datetime.now())
-        str1=input("Palindrome Checker\n\nEnter String to check: ")     #input string into str1 
+        os.system("clear")
+        str1=input(BRIGHT_CYAN+"\n\nPalindrome Checker"+RESET+"\n\nEnter String to check: ")     #input string into str1 
         if str1==str1[::-1]:        #check if reverse of given string is equal to original
             print("The given string "+GREEN+"IS"+RESET+" a Palindrome")
         else:
@@ -87,6 +100,7 @@ def pal():      #function to check for palindrome
         file2.close()
     except:     #exception handling for all cases
         print("There has been some "+RED+"error"+RESET)
+    sleep(3)
 #function body end-----------------------
 
 
@@ -96,7 +110,8 @@ def pal():      #function to check for palindrome
 def cond():  # function for condition checker
 # function body start---------------------
     try:
-        ch = int(input("\nDo you want to continue?"+GREEN+"\nYes:1"+RED+"\nNo:0\n: "+RESET))
+        os.system("clear")
+        ch = int(input("\n\nDo you want to continue?"+GREEN+"\nYes:1"+RED+"\nNo:0\n: "+RESET))
         if ch == 0:
             return False  # indicate to terminate program
         else:
@@ -111,10 +126,12 @@ def calc():    #function for calculator
 # function body start---------------------
     tim=str(datetime.now())     #find current time
     file2=open("history.txt","a")
-    num1=float(input("\nEnter "+BRIGHT_MAGENTA+"First"+RESET+" Number: "))
+    os.system("clear")
+    num1=float(input(BRIGHT_CYAN+"\n\nSimple Calculator"+RESET+"\n\nEnter "+BRIGHT_MAGENTA+"First"+RESET+" Number: "))
     num2=float(input("Enter "+BRIGHT_MAGENTA+"Second"+RESET+" Number: "))
     if num2==0:   #check if second number is zero
-        print("Second Number can't be Zero, Retry")
+        print("Second Number can't be "+RED+"Zero"+RESET+", Retry")
+        sleep(2)
         cond()
     else:
         print("Sum        :",num1+num2)
@@ -124,11 +141,13 @@ def calc():    #function for calculator
         print("Remainder  :",num1%num2)
         file2.write(f"{tim}: {user} used Calculator with {num1} and {num2}\n")      #appends calculatr usage to history
         file2.close()
+    sleep(3)
 # function body end-----------------------
 
 
 def rhis():      #function to read history
 # function body start---------------------
+    os.system("clear")
     tim=str(datetime.now())     #find current system time
     file2=open("history.txt","a")       #file opened to append history access
     file2.write(f"{tim}: {user} viewed History\n")      #appends history access
@@ -137,6 +156,7 @@ def rhis():      #function to read history
     for line in lines:      #iterating through each line of the file
         print(line,end="")
     file2.close()
+    sleep(3)
 # function body end-----------------------
 
 
@@ -145,11 +165,12 @@ def simply():    #function for main body
 #function body start-----------------------
     for i in range(lim):    #definite loop to prevent crash
         tim=str(datetime.now())
+        os.system("clear")
         print(BRIGHT_CYAN+"\nIDEKWIMTBIWN v1.4"+RESET+"\nWelcome ",user,"\nTime: ",tim,"\n-------------------------------------\n")
         ch2=int(input("1.Palindrome Check\n2.Simple Calculation\n3.List Addition\n4.List Sorting\n0.Logout"+GREEN+"\n:   "+RESET))
         if ch2==1:
             pal()       #calls palindrome fucntion
-            continue
+            continue 
         elif ch2==2:
             calc()      #calls simple calculation
             continue
@@ -166,7 +187,8 @@ def login():    #function for login
     tim=str(datetime.now())     #find current time
     for i in range(lim):    #definite loop to prevent crash
         try:
-            y=input("\nEnter Username : ")  #line to receive input as string
+            os.system("clear")
+            y=input("\n\nEnter Username : ")  #line to receive input as string
             x=input("Enter Password : ")    #line to receive input as integer
             file1=open("pass.txt","r")      #opens file in read mode
             lines = file1.readlines()       #reads all the lines in the file
@@ -177,6 +199,7 @@ def login():    #function for login
                 if y==usr:      #checks if username is in database
                     if x==pas:      #checks is password is correct  
                         print(GREEN+"Login Successful"+RESET)
+                        sleep(2)
                         file1.close()       #closing file pointer
                         user=usr        #updating global variable
                         file2.write(f"{tim}: {user} logged in\n")       #append to history
@@ -184,9 +207,11 @@ def login():    #function for login
                         return True     #returns TRUE when login successful
                     else:
                         print("\nUsername or Password "+RED+"incorrect"+RESET)
+                        sleep(2)
                         if not cond():      #calls condition 
                             continue        #retry login 
             print("\nUsername "+RED+"NOT"+RESET+" Found in Database")
+            sleep(2)
             return False        #returns FALSE when login un-successful        
         except:
             print("\nThere has been some "+RED+"issue"+RESET)  # exception for all cases
@@ -210,6 +235,7 @@ def rpass():     #function to read stored user data
         print("\nUsername: ", usr,"\nPassword: ",pas)
     file1.close()       #closing file pointer
     file2.close()       #closing file pointer
+    sleep(3)
 #function body end-----------------------
  
 
@@ -242,14 +268,18 @@ def adduser():      #fucntion to add a user to  the password list
             continue
 #function body end-----------------------
 
+#-------------MAIN---------------------------------
 
-#----------------------------------------------
-
-
-print(BRIGHT_CYAN+"\nIDEKWIMTBIWN v1.4"+RESET)
+print(BRIGHT_CYAN+"\nIDEKWIMTBIWN v1.4\n"+RESET)
+'''for i in range(100):
+    sleep(0.1)
+    print("Loading.............. ["+YELLOW+"%d%%"+RESET+"]\r'%i",end="")
+os.system("clear")'''
 global tim      #global variable to access current system time
 for i in range(lim):
     try:
+        sleep(2)
+        os.system("clear")
         ch4=int(input("\n1.Login\n2.Add User\n3.Read Accounts\n4.Read History\n0.Exit\n"+GREEN+": "+RESET))
         if ch4==1:
             if login():
@@ -260,6 +290,7 @@ for i in range(lim):
                 continue
         elif ch4==2:
             print("\nFirstly, Login with "+YELLOW+"existing username\n"+RESET)
+            sleep(2)
             if login():
                 adduser()       #calling function to add a user
                 continue
@@ -268,6 +299,7 @@ for i in range(lim):
                 continue
         elif ch4==3:
             print("\nFirstly, Login with "+YELLOW+"existing username\n"+RESET)
+            sleep(2)
             if login():
                 rpass()      #calling fucntion to read contents of pass.txt
                 continue
@@ -276,6 +308,7 @@ for i in range(lim):
                 continue
         elif ch4==4:
             print("\nFirstly, Login with "+YELLOW+"existing username\n"+RESET)
+            sleep(2)
             if login():
                 rhis()       #calling function to read contents of history.txt
                 continue
@@ -286,9 +319,15 @@ for i in range(lim):
             break       #program terminates
     except:
         print("There Has Been Some Input Error,"+RED+" Retry"+RESET)
+        sleep(2)
         continue
 
-print(GREEN+"\nTerminating all current Processes\n\n"+RESET+"----------------------\n")
+os.system("clear")
+file3=open("ascii.txt","r")     #opening file pointer in read mode
+lines=file3.readlines()         #reading the lines of ascii image for flash screen
+for line in lines:
+    print(line,end="")
+    file3.close()               #closing file pointer
 
 
 #end of code
